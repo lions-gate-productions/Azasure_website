@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azasure - Smart Money, Instant Results</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        teal: {
+                            950: '#001a1a',
+                            900: '#001f1f',
+                            800: '#003333',
+                            700: '#004d4d',
+                            600: '#006666',
+                            500: '#00a89a',
+                        },
+                        gold: '#ffd700',
+                        saffron: '#FF9933',
+                        neon: '#FF5F1F'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #001f1f 0%, #003333 50%, #001f1f 100%);
+            background-size: 400% 400%;
+            animation: gradient-shift 15s ease infinite;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* 3D Card Effects */
+        .card-3d {
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        
+        .card-3d:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale3d(1.03, 1.03, 1.03);
+            box-shadow: 0 25px 50px rgba(0, 168, 154, 0.3);
+        }
+        
+        /* Glassmorphism Effect */
+        .glass-effect {
+            background: rgba(0, 168, 154, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 168, 154, 0.1);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 215, 0, 0.3);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 168, 154, 0.2);
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(-5px) rotate(-1deg); }
+        }
+        
+        @keyframes pulse-gold {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+                transform: scale(1.02);
+            }
+        }
+        
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-pulse-gold { animation: pulse-gold 2s ease-in-out infinite; }
+        
+        /* Avatar System */
+        .avatar-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            transition: all 0.4s ease;
+        }
+        
+        .avatar-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+        
+        /* Neon Effects */
+        .neon-text {
+            color: #fff;
+            text-shadow: 0 0 5px #FF5F1F, 0 0 10px #FF5F1F, 0 0 15px #FF5F1F, 0 0 20px #FF5F1F;
+        }
+        
+        .neon-border {
+            box-shadow: 0 0 5px #FF5F1F, 0 0 10px #FF5F1F, inset 0 0 5px #FF5F1F;
+        }
+        
+        /* Button Styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #00a89a 0%, #006666 100%);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 168, 154, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 168, 154, 0.5);
+            background: linear-gradient(135deg, #00a89a 0%, #004d4d 100%);
+        }
+        
+        .btn-gold {
+            background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+            color: #001f1f;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+            background: linear-gradient(135deg, #ffd700 0%, #e6a800 100%);
+        }
+        
+        /* Custom Shapes */
+        .custom-shape {
+            position: absolute;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            border-radius: 42% 58% 70% 30% / 30% 43% 57% 70%;
+            background: linear-gradient(135deg, #00a89a 0%, #ffd700 100%);
+            top: 10%;
+            left: 5%;
+            animation: float 15s ease-in-out infinite;
+        }
+        
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            background: linear-gradient(135deg, #ffd700 0%, #FF5F1F 100%);
+            bottom: 20%;
+            right: 10%;
+            animation: float 12s ease-in-out infinite reverse;
+        }
+        
+        /* Trading Cards Styles */
+        .trading-card {
+            background: linear-gradient(135deg, rgba(0, 168, 154, 0.1) 0%, rgba(0, 51, 51, 0.2) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .trading-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .trading-card:hover::before {
+            opacity: 1;
+        }
+        
+        .trading-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 168, 154, 0.2);
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+        
+        /* Stats Counter */
+        .stat-item {
+            position: relative;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00a89a 0%, #ffd700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        /* Feature Icons */
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(0, 168, 154, 0.2) 0%, rgba(255, 215, 0, 0.2) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            margin: 0 auto 20px;
+            font-size: 28px;
+            color: #ffd700;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, rgba(0, 168, 154, 0.3) 0%, rgba(255, 215, 0, 0.3) 100%);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="glass-effect fixed w-full z-50 py-4 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-gradient-to-br from-gold to-teal-500 rounded-xl flex items-center justify-center">
+                    <span class="text-teal-900 font-bold text-lg">A</span>
+                </div>
+                <span class="text-xl font-bold bg-gradient-to-r from-gold to-teal-500 bg-clip-text text-transparent">AZASURE</span>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#features" class="text-white/80 hover:text-gold transition-colors">Features</a>
+                <a href="#how-it-works" class="text-white/80 hover:text-gold transition-colors">How It Works</a>
+                <a href="#rates" class="text-white/80 hover:text-gold transition-colors">Rates</a>
+                <a href="#testimonials" class="text-white/80 hover:text-gold transition-colors">Testimonials</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <button class="text-white/80 hover:text-gold transition-colors">Login</button>
+                <button class="btn-gold">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20 pb-16 px-4 relative">
+        <div class="custom-shape shape-1"></div>
+        <div class="custom-shape shape-2"></div>
+        
+        <div class="max-w-6xl mx-auto text-center z-10">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                <span class="bg-gradient-to-r from-gold to-teal-500 bg-clip-text text-transparent">The Future</span>
+                <span class="block mt-2">of Money is Azasure</span>
+            </h1>
+            
+            <p class="text-xl text-white/80 max-w-3xl mx-auto mb-10">
+                Trade gift cards and crypto at the hottest rates. Instant, secure payouts with Nigeria's most trusted platform.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mb-16">
+                <button class="btn-primary text-lg px-8 py-4">
+                    Start Trading Now <i class="ml-2 fas fa-arrow-right"></i>
+                </button>
+                <button class="btn-gold text-lg px-8 py-4">
+                    Download App
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                <div class="stat-item">
+                    <div class="stat-number">50,000+</div>
+                    <div class="text-white/70">Active Users</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">₦5.2B+</div>
+                    <div class="text-white/70">Traded</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98.7%</div>
+                    <div class="text-white/70">Satisfaction</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="text-white/70">Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 px-4 relative">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-4">Why Choose Azasure?</h2>
+            <p class="text-xl text-white/70 text-center max-w-3xl mx-auto mb-16">Experience the future of gift card and crypto trading with our cutting-edge platform</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="feature-item glass-card p-8 rounded-2xl text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Instant Payouts</h3>
+                    <p class="text-white/70">Get paid immediately after your trade is verified. No waiting periods.</p>
+                </div>
+                
+                <div class="feature-item glass-card p-8 rounded-2xl text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Secure Trading</h3>
+                    <p class="text-white/70">Bank-level security ensures your transactions and data are always protected.</p>
+                </div>
+                
+                <div class="feature-item glass-card p-8 rounded-2xl text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Best Rates</h3>
+                    <p class="text-white/70">We offer the most competitive rates in the market for all gift cards and crypto.</p>
+                </div>
+                
+                <div class="feature-item glass-card p-8 rounded-2xl text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">24/7 Support</h3>
+                    <p class="text-white/70">Our dedicated support team is always available to assist you with any issues.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-20 px-4 bg-teal-900/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-4">How Azasure Works</h2>
+            <p class="text-xl text-white/70 text-center max-w-3xl mx-auto mb-16">Trade your gift cards in three simple steps</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center card-3d p-8 rounded-2xl">
+                    <div class="w-20 h-20 rounded-full bg-teal-500/20 flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl text-gold">1</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Select Your Card</h3>
+                    <p class="text-white/70">Choose the type of gift card you want to trade and enter its details.</p>
+                </div>
+                
+                <div class="text-center card-3d p-8 rounded-2xl">
+                    <div class="w-20 h-20 rounded-full bg-teal-500/20 flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl text-gold">2</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Get Verified</h3>
+                    <p class="text-white/70">Our AI system verifies your card instantly. No long waiting periods.</p>
+                </div>
+                
+                <div class="text-center card-3d p-8 rounded-2xl">
+                    <div class="w-20 h-20 rounded-full bg-teal-500/20 flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl text-gold">3</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Receive Payment</h3>
+                    <p class="text-white/70">Choose your payout method and receive your money instantly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trading Cards Section -->
+    <section id="rates" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-4">Today's Hot Rates</h2>
+            <p class="text-xl text-white/70 text-center max-w-3xl mx-auto mb-16">Trade your gift cards at the most competitive rates in the market</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="trading-card text-center">
+                    <div class="text-4xl mb-4">🎵</div>
+                    <h3 class="text-xl font-bold mb-2">iTunes Cards</h3>
+                    <div class="text-gold text-2xl font-bold mb-4">₦520/$</div>
+                    <p class="text-white/70 text-sm">Instant verification and payout</p>
+                </div>
+                
+                <div class="trading-card text-center">
+                    <div class="text-4xl mb-4">📦</div>
+                    <h3 class="text-xl font-bold mb-2">Amazon Cards</h3>
+                    <div class="text-gold text-2xl font-bold mb-4">₦505/$</div>
+                    <p class="text-white/70 text-sm">US & UK cards accepted</p>
+                </div>
+                
+                <div class="trading-card text-center">
+                    <div class="text-4xl mb-4">🎮</div>
+                    <h3 class="text-xl font-bold mb-2">Steam Wallet</h3>
+                    <div class="text-gold text-2xl font-bold mb-4">₦490/$</div>
+                    <p class="text-white/70 text-sm">Fast and secure trades</p>
+                </div>
+                
+                <div class="trading-card text-center">
+                    <div class="text-4xl mb-4">🛒</div>
+                    <h3 class="text-xl font-bold mb-2">Google Play</h3>
+                    <div class="text-gold text-2xl font-bold mb-4">₦500/$</div>
+                    <p class="text-white/70 text-sm">Instant payout to your bank</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="btn-primary">View All Rates</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 px-4 bg-teal-900/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-4">What Our Users Say</h2>
+            <p class="text-xl text-white/70 text-center max-w-3xl mx-auto mb-16">Join thousands of satisfied users who trust Azasure for their gift card trades</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <div class="avatar-container w-12 h-12">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User" class="avatar-image">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-bold">Chiamaka N.</h4>
+                            <div class="flex text-gold">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-white/70">"I've been using Azasure for over a year now, and I'm always impressed with their rates and instant payouts. The best platform in Nigeria!"</p>
+                </div>
+                
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <div class="avatar-container w-12 h-12">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="avatar-image">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-bold">Obinna C.</h4>
+                            <div class="flex text-gold">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-white/70">"The customer support is exceptional. They guided me through my first trade and now I'm a regular user. Fast, secure, and reliable!"</p>
+                </div>
+                
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <div class="avatar-container w-12 h-12">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="avatar-image">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-bold">Ngozi E.</h4>
+                            <div class="flex text-gold">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-white/70">"I compared rates across multiple platforms, and Azasure consistently offers the best value for my gift cards. Highly recommended!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4 relative">
+        <div class="max-w-5xl mx-auto text-center glass-effect rounded-3xl p-12">
+            <h2 class="text-4xl font-bold mb-6">Ready to Start Trading?</h2>
+            <p class="text-xl text-white/70 mb-10">Join thousands of Nigerians who are already enjoying instant, secure gift card trading with Azasure</p>
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <button class="btn-primary text-lg px-8 py-4">
+                    Create Account
+                </button>
+                <button class="glass-card text-lg px-8 py-4 text-white border border-gold/30">
+                    Download App
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 bg-teal-950">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center space-x-2 mb-6">
+                    <div class="w-10 h-10 bg-gradient-to-br from-gold to-teal-500 rounded-xl flex items-center justify-center">
+                        <span class="text-teal-900 font-bold text-lg">A</span>
+                    </div>
+                    <span class="text-xl font-bold bg-gradient-to-r from-gold to-teal-500 bg-clip-text text-transparent">AZASURE</span>
+                </div>
+                <p class="text-white/70">Nigeria's leading gift card and crypto trading platform offering the best rates and instant payouts.</p>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-6">Quick Links</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-white/70 hover:text-gold transition-colors">Home</a></li>
+                    <li><a href="#features" class="text-white/70 hover:text-gold transition-colors">Features</a></li>
+                    <li><a href="#rates" class="text-white/70 hover:text-gold transition-colors">Rates</a></li>
+                    <li><a href="#testimonials" class="text-white/70 hover:text-gold transition-colors">Testimonials</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-6">Legal</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-white/70 hover:text-gold transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" class="text-white/70 hover:text-gold transition-colors">Terms of Service</a></li>
+                    <li><a href="#" class="text-white/70 hover:text-gold transition-colors">FAQ</a></li>
+                    <li><a href="#" class="text-white/70 hover:text-gold transition-colors">Support</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-6">Connect With Us</h3>
+                <div class="flex space-x-4 mb-6">
+                    <a href="#" class="w-10 h-10 rounded-full bg-teal-800 flex items-center justify-center hover:bg-teal-700 transition-colors">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-teal-800 flex items-center justify-center hover:bg-teal-700 transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-teal-800 flex items-center justify-center hover:bg-teal-700 transition-colors">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-teal-800 flex items-center justify-center hover:bg-teal-700 transition-colors">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <p class="text-white/70">Email: support@azasure.com</p>
+                <p class="text-white/70">Phone: +234 800 000 0000</p>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-teal-800 text-center text-white/60">
+            <p>© 2023 Azasure. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animation for elements when they come into view
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.feature-item, .card-3d, .trading-card').forEach(item => {
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>
